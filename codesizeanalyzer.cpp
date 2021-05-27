@@ -41,11 +41,11 @@ float CodeSizeAnalyzer::analyze()
     _code.remove(strings);
 
     // Подсчитывем количество операторов
-    const QRegularExpression operations(R"((?:[a-zA-Z0-9_]+)(?=[ ]*(?=\(.*\)))|;|->|\.|\(|\{|\[|\+\+|--|\+|-|\*|\/|%|&&|\|\||&|\||\^|<<|>>|~|!|==|!=|<=|>=|=|<|>)");
+    const QRegularExpression operations(R"((?:[a-zA-Z0-9_]+)(?=[ ]*(?=\(.*\)))|;|->|\.|\(|\{|\[|\+\+|--|\+|-|\*|\/|%|&&|\|\||&|\||\^|<<|>>|~|!|==|!=|<=|>=|=|<|>|if|else|return)");
     countMatches(_countPerOperation, operations);
 
     // Удаление уже ненужных операторов
-    const QRegularExpression nonOperands("(?:[a-zA-Z0-9_]+)(?=[ ]*(?=\\(.*\\)))|;|->|\\.|\\(|\\{|\\[|\\+\\+|--|\\+|-|\\*|\\/|%|&&|\\|\\||&|\\||\\^|<<|>>|~|!|==|!=|<=|>=|=|<|>|\\)|\\}|\\]|\\.|\\,");
+    const QRegularExpression nonOperands("(?:[a-zA-Z0-9_]+)(?=[ ]*(?=\\(.*\\)))|;|->|\\.|\\(|\\{|\\[|\\+\\+|--|\\+|-|\\*|\\/|%|&&|\\|\\||&|\\||\\^|<<|>>|~|!|==|!=|<=|>=|=|<|>|\\)|\\}|\\]|\\.|\\,|if|else|return");
     _code.replace(nonOperands, " ");
     _code.replace(QRegExp("[ ]{2,}"), " ");
 
